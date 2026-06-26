@@ -55,7 +55,10 @@ export default function GiftSection() {
             ¡Su presencia en nuestro casamiento es el mejor regalo!
           </span>
           <br/><br/>
-          Si desean hacernos un obsequio, pueden ayudarnos a hacer realidad nuestra luna de miel.
+          Si desean hacernos un regalo, pueden elegir el que prefieran o ayudarnos a hacer realidad nuestra luna de miel.
+        </p>
+        <p className="font-serif italic text-m leading-relaxed" style={{ color: 'rgba(247,243,236,0.8)', maxWidth: 280, margin: '0 auto 28px' }}>
+        ¡Cualquier gesto será recibido con mucho cariño!
         </p>
       </div>
 
