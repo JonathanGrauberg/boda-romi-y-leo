@@ -1,0 +1,419 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- Custom Properties ---- */
+:root {
+  --green: #5C6B3D;
+  --green-dark: #3f4d28;
+  --green-light: #7a8f52;
+  --cream: #F7F3EC;
+  --cream-dark: #EDE8DC;
+  --text-dark: #2C2822;
+  --text-mid: #5C5548;
+  --text-light: #8a8070;
+  --gold: #B8956A;
+}
+
+/* ---- Base ---- */
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #1a1a1a;
+  font-family: 'Raleway', sans-serif;
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ---- Typography ---- */
+.font-script {
+  font-family: 'Great Vibes', cursive;
+}
+
+.font-serif {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.font-sans {
+  font-family: 'Raleway', sans-serif;
+}
+
+/* ---- Envelope Scene ---- */
+.envelope-scene {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+  z-index: 100;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.envelope-scene.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.envelope-wrapper {
+  position: relative;
+  width: 320px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+@media (min-width: 640px) {
+  .envelope-wrapper {
+    width: 380px;
+  }
+}
+
+/* Envelope body */
+.envelope-body {
+  position: relative;
+  width: 100%;
+  background: var(--green);
+  border-radius: 4px 4px 8px 8px;
+  overflow: visible;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Envelope flap */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.envelope-flap svg {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.envelope-flap.open {
+  transform: perspective(600px) rotateX(-180deg);
+}
+
+/* Card inside envelope */
+.envelope-card {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 8px;
+  background: var(--cream);
+  border-radius: 4px;
+  padding: 28px 24px 24px;
+  z-index: 5;
+  transform: translateY(0);
+  transition: transform 1.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+  opacity: 1;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+}
+
+.envelope-card.rising {
+  transform: translateY(-220px);
+  opacity: 1;
+}
+
+/* Envelope front text */
+.envelope-front {
+  position: relative;
+  z-index: 6;
+  padding: 32px 28px 28px;
+  text-align: center;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Click hint pulse */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(247, 243, 236, 0.4); }
+  70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(247, 243, 236, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(247, 243, 236, 0); }
+}
+
+.click-hint {
+  animation: pulse-ring 2.5s ease-in-out infinite;
+  border-radius: 50%;
+}
+
+/* ---- Scroll Fade ---- */
+.fade-element {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-element.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-element.delay-1 { transition-delay: 0.1s; }
+.fade-element.delay-2 { transition-delay: 0.2s; }
+.fade-element.delay-3 { transition-delay: 0.35s; }
+.fade-element.delay-4 { transition-delay: 0.5s; }
+.fade-element.delay-5 { transition-delay: 0.65s; }
+
+/* ---- Card Container ---- */
+.card-container {
+  max-width: 440px;
+  margin: 0 auto;
+  background: var(--cream);
+  min-height: 100vh;
+  position: relative;
+  box-shadow: 0 0 80px rgba(0,0,0,0.6);
+}
+
+/* ---- Section Divider ---- */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+.ornament-divider::before,
+.ornament-divider::after {
+  content: '';
+  height: 1px;
+  width: 48px;
+  background: currentColor;
+  opacity: 0.4;
+}
+
+/* ---- Countdown ---- */
+@keyframes tick {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+.countdown-digit {
+  animation: tick 1s ease-in-out infinite;
+  animation-fill-mode: both;
+}
+
+.countdown-digit:nth-child(1) { animation-delay: 0s; }
+.countdown-digit:nth-child(2) { animation-delay: 0.25s; }
+.countdown-digit:nth-child(3) { animation-delay: 0.5s; }
+.countdown-digit:nth-child(4) { animation-delay: 0.75s; }
+
+/* ---- Calendar ---- */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.calendar-day.wedding {
+  background: #F7F3EC;
+  color: var(--green);
+  font-weight: 700;
+  box-shadow: 0 0 0 2px rgba(247,243,236,0.8);
+  animation: glow-day 2s ease-in-out infinite;
+}
+
+@keyframes glow-day {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(247,243,236,0.8); }
+  50% { box-shadow: 0 0 0 4px rgba(247,243,236,0.4), 0 0 12px rgba(247,243,236,0.3); }
+}
+
+/* ---- Map embed ---- */
+.map-container {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(92, 107, 61, 0.2);
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 180px;
+  border: none;
+  display: block;
+}
+
+/* ---- Timeline ---- */
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(92, 107, 61, 0.4) 10%, rgba(92, 107, 61, 0.4) 90%, transparent);
+  transform: translateX(-50%);
+}
+
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  border: 2px solid var(--cream);
+  box-shadow: 0 0 0 2px var(--green);
+  flex-shrink: 0;
+}
+
+/* ---- Music Player ---- */
+.music-progress {
+  height: 3px;
+  background: rgba(92, 107, 61, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.music-progress-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: var(--green);
+  border-radius: 2px;
+  animation: progress-play 18s linear infinite;
+}
+
+@keyframes progress-play {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+/* ---- Buttons ---- */
+.btn-green {
+  display: inline-block;
+  background: var(--green);
+  color: var(--cream);
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(92, 107, 61, 0.25);
+}
+
+.btn-green:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(92, 107, 61, 0.4);
+}
+
+.btn-green:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  display: inline-block;
+  background: transparent;
+  color: var(--cream);
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 9px 22px;
+  border-radius: 2px;
+  border: 1px solid rgba(247, 243, 236, 0.6);
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  background: rgba(247, 243, 236, 0.12);
+  border-color: rgba(247, 243, 236, 0.9);
+}
+
+/* ---- QR Code placeholder ---- */
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 2px;
+  width: 132px;
+  height: 132px;
+}
+
+.qr-cell {
+  border-radius: 1px;
+}
+
+/* ---- Invitation reveal ---- */
+.invitation-wrapper {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.invitation-wrapper.revealed {
+  opacity: 1;
+}
+
+/* ---- Decorative border ---- */
+.decorative-border {
+  border: 1px solid rgba(92, 107, 61, 0.15);
+  border-radius: 2px;
+}
+
+/* ---- Subtle texture overlay ---- */
+.texture-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235C6B3D' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ---- Page enter animation ---- */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: page-enter 1s ease forwards;
+}
+
+/* ---- Floating petals (decorative) ---- */
+@keyframes float-petal {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+  50% { transform: translateY(-10px) rotate(5deg); opacity: 0.8; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+}
+
+.petal {
+  animation: float-petal 4s ease-in-out infinite;
+}
+
+.petal:nth-child(2) { animation-delay: 0.5s; }
+.petal:nth-child(3) { animation-delay: 1s; }
