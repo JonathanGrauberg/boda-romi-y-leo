@@ -1,23 +1,27 @@
 import { useState } from 'react';
 import { useScrollFade } from '../hooks/useScrollFade';
-import QRCode from 'react-qr-code';
 
 export default function GiftSection() {
   const ref1 = useScrollFade();
   const ref2 = useScrollFade();
   const [isOpen, setIsOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const alias = 'CasamientoRomiLeo';
-  // Reemplazá este link por la URL real de tu invitación cuando la subas
-  const currentUrl = typeof window !== 'undefined' ? window.location.href : '#'; 
 
   const copyAlias = async () => {
     try {
       await navigator.clipboard.writeText(alias);
-      alert('Alias copiado correctamente');
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleOpen = async () => {
+    setIsOpen(true);
+    await copyAlias();
   };
 
   return (
@@ -40,71 +44,48 @@ export default function GiftSection() {
             <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
           </svg>
         </div>
+
         <h2 className="font-script mb-3" style={{ fontSize: 40, color: 'white' }}>
           Sugerencia de regalo
         </h2>
         <div style={{ height: 1, background: 'rgba(247,243,236,0.15)', margin: '0 40px 20px' }} />
+
         <p className="font-serif italic text-sm leading-relaxed" style={{ color: 'rgba(247,243,236,0.8)', maxWidth: 280, margin: '0 auto 28px' }}>
-          <span className="font-serif font-light mb-6" style={{ color: 'white', fontSize: 20 }} >
+          <span className="font-serif font-light mb-6" style={{ color: 'white', fontSize: 20 }}>
             ¡Su presencia en nuestro casamiento es el mejor regalo!
           </span>
-            <br/>
-            Si desean hacernos un obsequio, pueden elegir el que prefieran o ayudarnos a hacer realidad nuestra luna de miel. 
-            <br/>
-            ¡Cualquier gesto será recibido con muchísimo cariño!
+          <br/><br/>
+          Si desean hacernos un obsequio, pueden ayudarnos a hacer realidad nuestra luna de miel.
         </p>
       </div>
 
       <div ref={ref2} className="fade-element delay-2 flex justify-center">
-        <div
+        <button
+          onClick={handleOpen}
           style={{
-            padding: 20,
-            background: 'var(--green-dark)',
-            borderRadius: 12,
-            border: '1px solid rgba(247,243,236,0.15)',
-            display: 'inline-block',
-            minWidth: 260,
+            padding: '14px 36px',
+            borderRadius: 999,
+            border: '1px solid rgba(247,243,236,0.4)',
+            background: 'transparent',
+            color: 'rgba(247,243,236,0.9)',
+            fontFamily: 'inherit',
+            fontSize: '0.8rem',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = 'rgba(247,243,236,0.1)';
+            e.currentTarget.style.borderColor = 'rgba(247,243,236,0.7)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.borderColor = 'rgba(247,243,236,0.4)';
           }}
         >
-          <p className="font-sans text-xs mb-4" style={{ color: 'rgba(247,243,236,0.5)', letterSpacing: '0.1em' }}>
-            Alias: {alias}
-          </p>
-
-          <div
-            style={{ 
-              background: 'white',
-              padding: 12, 
-              borderRadius: 8,
-              display: 'inline-flex',
-            }}
-          >
-            
-            <QRCode value={currentUrl} size={150} />
-          </div>
-
-          <p className="font-sans text-xs mt-4" style={{ color: 'rgba(247,243,236,0.5)', letterSpacing: '0.1em' }}>
-            Escaneá el QR para ver los datos
-          </p>
-
-          <button
-              className='mt-2 btn-green '
-              onClick={copyAlias}
-              style={{
-                padding: '10px 20px',
-                borderRadius: 999,
-                border: '1px solid var(--green)',
-                background: 'var(--green)',
-                color: 'white',
-                fontWeight: 500,
-                cursor: 'pointer',
-                fontSize: '0.85rem',
-                width: '100%',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
-              }}
-            >
-              Copiar alias
-            </button>
-        </div>
+          Enviar un regalo
+        </button>
       </div>
 
       {/* Wavy bottom */}
@@ -114,104 +95,143 @@ export default function GiftSection() {
         </svg>
       </div>
 
-      {/* MODAL ELEGANTE */}
+      {/* MODAL */}
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
           style={{
             position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            inset: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)',
             backdropFilter: 'blur(6px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 9999,
             padding: 20,
+            animation: 'fadeIn 0.25s ease',
           }}
         >
           <div
-            onClick={(e) => e.stopPropagation()} // Evita que se cierre al tocar adentro
+            onClick={e => e.stopPropagation()}
             style={{
               background: 'var(--cream)',
-              padding: '32px 24px',
+              padding: '40px 28px 32px',
               borderRadius: 16,
-              maxWidth: 340,
+              maxWidth: 320,
               width: '100%',
-              boxShadow: '0 20px 25px -5px rgba(0,0,0,0.2)',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
               textAlign: 'center',
               position: 'relative',
-              border: '1px solid rgba(0,0,0,0.05)'
+              animation: 'slideUp 0.3s cubic-bezier(0.2,0,0,1)',
             }}
           >
-            {/* Botón Cerrar */}
-            <button 
+            {/* Botón cerrar */}
+            <button
               onClick={() => setIsOpen(false)}
               style={{
                 position: 'absolute',
-                top: 12,
-                right: 16,
+                top: 14,
+                right: 18,
                 background: 'none',
                 border: 'none',
-                fontSize: 20,
-                color: 'var(--green-dark)',
+                fontSize: 18,
+                color: 'var(--green)',
                 cursor: 'pointer',
-                opacity: 0.6
+                opacity: 0.5,
+                lineHeight: 1,
               }}
             >
               ✕
             </button>
 
-            <h3 className="font-script" style={{ fontSize: 32, color: 'var(--green-dark)', marginBottom: 8 }}>
-              ¡Muchas Gracias!
+            {/* Icono corazón */}
+            <div className="flex justify-center mb-4">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </div>
+
+            <h3 className="font-script" style={{ fontSize: 34, color: 'var(--green-dark)', marginBottom: 6 }}>
+              ¡Gracias de corazón!
             </h3>
-            
-            <p className="font-serif italic text-xs" style={{ color: 'var(--green)', marginBottom: 20 }}>
-              Valoramos muchísimo tu colaboración para nuestro gran comienzo.
+
+            <p className="font-serif italic text-xs leading-relaxed" style={{ color: 'var(--text-mid)', marginBottom: 20, maxWidth: 240, margin: '0 auto 20px' }}>
+              Cada gesto suma un recuerdo más a esta historia que estamos escribiendo juntos.
             </p>
 
-            <div style={{ height: 1, background: 'rgba(0,0,0,0.08)', marginBottom: 20 }} />
+            <div style={{ height: 1, background: 'rgba(92,107,61,0.12)', marginBottom: 20 }} />
 
-            <p className="font-sans text-xs" style={{ color: '#777', letterSpacing: '0.05em', marginBottom: 4 }}>
-              ALIAS:
+            <p className="font-sans text-xs uppercase tracking-widest" style={{ color: 'var(--text-light)', marginBottom: 8, letterSpacing: '0.2em' }}>
+              Nuestro Alias
             </p>
-            
-            <p
-              style={{
-                color: 'var(--green-dark)',
-                fontSize: '1.25rem',
-                fontWeight: 700,
-                letterSpacing: '0.05em',
-                marginBottom: 16,
-                wordBreak: 'break-word',
-              }}
-            >
+
+            <p style={{
+              color: 'var(--green-dark)',
+              fontSize: '1.1rem',
+              fontWeight: 700,
+              letterSpacing: '0.04em',
+              marginBottom: 20,
+              wordBreak: 'break-word',
+            }}>
               {alias}
             </p>
 
+            {/* Botón copiar con feedback */}
             <button
               onClick={copyAlias}
               style={{
-                padding: '10px 20px',
+                padding: '12px 20px',
                 borderRadius: 999,
                 border: '1px solid var(--green)',
-                background: 'var(--green)',
-                color: 'white',
+                background: copied ? 'var(--green)' : 'transparent',
+                color: copied ? 'white' : 'var(--green)',
                 fontWeight: 500,
                 cursor: 'pointer',
-                fontSize: '0.85rem',
+                fontSize: '0.8rem',
+                letterSpacing: '0.1em',
                 width: '100%',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
+                transition: 'all 0.25s ease',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 8,
               }}
             >
-              Copiar alias
+              {copied ? (
+                <>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  ¡Alias copiado!
+                </>
+              ) : (
+                <>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                  Copiar alias
+                </>
+              )}
             </button>
+
+            <p className="font-sans text-xs mt-4" style={{ color: 'var(--text-light)', opacity: 0.6 }}>
+              Tocá fuera del recuadro para cerrar
+            </p>
           </div>
         </div>
       )}
+
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(16px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </section>
   );
 }
