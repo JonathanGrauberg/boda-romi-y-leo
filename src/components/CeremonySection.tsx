@@ -58,7 +58,7 @@ export default function CeremonySection() {
           </svg>
         }
         title="Ceremonia Religiosa"
-        time="20:20 hs"
+        time="21:20 hs"
         name="Parroquia San José"
         address="Crespo, Entre Ríos"
         mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3382.689415713022!2d-60.3035303!3d-32.023525799999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b424a03ab80feb%3A0xd52f89faf2f8210a!2sParroquia%20San%20Jos%C3%A9!5e0!3m2!1ses!2sar!4v1782308128924!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" // 👈 PEGAR EMBED DE GOOGLE MAPS ACÁ
@@ -75,7 +75,7 @@ export default function CeremonySection() {
           </svg>
         }
         title="Recepción"
-        time="21:45 hs"
+        time="22:45 hs"
         name="Salón Barcelona"
         address="Crespo, Entre Ríos"
         mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3381.9350619027114!2d-60.292074199999995!3d-32.04394909999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b423acb08213dd%3A0x8d866a2ba9de2db5!2sBarcelona%20Sal%C3%B3n%20de%20Fiestas%20y%20Eventos!5e0!3m2!1ses!2sar!4v1782308033774!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" // 👈 PEGAR EMBED DE GOOGLE MAPS ACÁ
