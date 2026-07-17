@@ -1,3 +1,4 @@
+//src\App.tsx
 import { useState, useEffect, useRef } from 'react';
 import Envelope from './components/Envelope';
 import HeroSection from './components/HeroSection';
@@ -8,8 +9,16 @@ import DressCodeSection from './components/DressCodeSection';
 import GiftSection from './components/GiftSection';
 import ConfirmationSection from './components/ConfirmationSection';
 import RecommendationsSection from './components/RecommendationsSection';
+import { invitationConfig } from "./config/invitationConfig";
 
 export default function App() {
+
+  const route = window.location.pathname.replace("/", "");
+
+  const config =
+    invitationConfig[route as keyof typeof invitationConfig] ??
+    invitationConfig.default;
+
   const [revealed, setRevealed] = useState(false);
   const [mounted, setMounted] = useState(false);
   
@@ -88,7 +97,10 @@ export default function App() {
           <ItinerarySection />
           <DressCodeSection />
           <GiftSection />
-          <ConfirmationSection />
+          <ConfirmationSection
+            confirmationDate={config.confirmationDate}
+            formUrl={config.formUrl}
+          />
           <RecommendationsSection />
         </div>
       </div>

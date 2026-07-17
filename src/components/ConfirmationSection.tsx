@@ -1,6 +1,15 @@
+//src\components\ConfirmationSection.tsx
 import { useScrollFade } from '../hooks/useScrollFade';
 
-export default function ConfirmationSection() {
+type Props = {
+  confirmationDate: string;
+  formUrl: string;
+};
+
+export default function ConfirmationSection({
+  confirmationDate,
+  formUrl,
+}: Props) {
   const ref = useScrollFade();
 
   function addToCalendar() {
@@ -68,11 +77,11 @@ export default function ConfirmationSection() {
 
         <span className='text-sm' style={{ fontSize: 14 }}>Confirmar antes del:</span>
         <p className="font-serif font-semibold mb-6" style={{ color: 'var(--green)', fontSize: 17 }}>
-          18 de Septiembre
+          {confirmationDate}  
         </p>
 
         <a
-          href="https://forms.gle/pbaRzXXCinKRgpRs5"
+          href={formUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-green"
