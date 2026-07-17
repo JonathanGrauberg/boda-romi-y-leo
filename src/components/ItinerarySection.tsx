@@ -2,7 +2,7 @@ import { useScrollFade } from '../hooks/useScrollFade';
 
 const items = [
   {
-    time: '8:20 pm',
+    time: '9:20 pm',
     label: 'IGLESIA',
     icon: (
       // Cruz
@@ -13,7 +13,7 @@ const items = [
     ),
   },
   {
-    time: '9:45 pm',
+    time: '10:45 pm',
     label: 'CIVIL',
     icon: (
       // Papel / documento con líneas
@@ -26,7 +26,7 @@ const items = [
     ),
   },
   {
-    time: '10:45 pm',
+    time: '11:45 pm',
     label: 'CENA',
     icon: (
       // Tenedor y cuchillo
@@ -40,7 +40,7 @@ const items = [
     ),
   },
   {
-    time: '00:00 am',
+    time: '01:00 am',
     label: 'PRIMER BAILE,\nVALS Y BRINDIS',
     icon: (
       // Copa de champagne
@@ -52,7 +52,7 @@ const items = [
     ),
   },
   {
-    time: '00:30 am',
+    time: '01:30 am',
     label: 'FIESTA',
     icon: (
       // Estrella de 6 puntas / destellos tipo celebración
@@ -62,7 +62,7 @@ const items = [
     ),
   },
   {
-    time: '5:30 am',
+    time: '6:00 am',
     label: 'FIN',
     icon: (
       // Luna / amanecer — cierre elegante
